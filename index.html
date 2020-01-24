@@ -1,1 +1,147 @@
-Hello World
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Project 1 - DH2321 Information Visualization</title>
+<style>
+
+    body {
+        margin: 20px;
+        font-family: "Calibri Light", serif;
+    }
+
+    text {
+        font-family: "Calibri Light", serif;
+    }
+
+    option {
+        font-family: "Calibri Light", serif;
+    }
+
+</style>
+<body>
+<h1>DH2321 Information Visualization 2020</h1>
+<h2>Hannah Clara Bayat - Project 1</h2>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script>
+
+    var dataPath = "skills_hobbies.csv";
+
+    var parCoordsWidth = 1200;
+    var parCoordsHeight = 300;
+
+    var margin = 50;
+
+    var svgParCoords = d3.select("body")
+        .append("svg")
+        .attr("width", parCoordsWidth + 2 * margin)
+        .attr("height", parCoordsHeight);
+
+    for (let i = 0; i < 12; i++) {
+        console.log(i);
+        var line = svgParCoords.append("line")
+            .attr("x1", margin + (i * parCoordsWidth / 12) + 3)
+            .attr("y1", 0)
+            .attr("x2", margin + (i * parCoordsWidth / 12) + 3)
+            .attr("y2", parCoordsHeight)
+            .attr("stroke-width", 1)
+            .attr("stroke", "black");
+        for (let j = 0; j < 10; j++) {
+            var scale = svgParCoords.append("line")
+                .attr("x1", margin + (i * parCoordsWidth / 12) + 6)
+                .attr("y1", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
+                .attr("x2", margin + (i * parCoordsWidth / 12))
+                .attr("y2", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
+                .attr("stroke-width", 1)
+                .attr("stroke", "black");
+
+            var scaleLabel = svgParCoords.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", margin + (i * parCoordsWidth / 12) - 5)
+                .attr("y", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
+                .text(10 - j);
+        }
+    }
+
+    d3.csv(dataPath).then(function (data) {
+
+        for (let i = 0; i < data.length; i++) {
+            //TODO: add name somewhere
+            console.log(data[i].Name);
+            var currentStudent = data[i];
+
+            //read hobbies
+            var hobbies = new Array(8);
+            {
+                //orange
+                hobbies[0] = currentStudent.sports;
+                //blue
+                hobbies[1] = currentStudent.multimedia;
+                //teal
+                hobbies[2] = currentStudent.art;
+                //darkgreen
+                hobbies[3] = currentStudent.science;
+                //yellow
+                hobbies[4] = currentStudent.travelling;
+                //red
+                hobbies[5] = currentStudent.economics;
+                //purple
+                hobbies[6] = currentStudent.technology;
+                //lightgreen
+                hobbies[7] = currentStudent.sustainability;
+            }
+
+            //hobby colors
+            var colors = "orange";
+
+            //read skills
+            var skills = new Array(12);
+            {
+                skills[0] = currentStudent.visualization_skills;
+                skills[1] = currentStudent.statistical_skills;
+                skills[2] = currentStudent.mathematic_skills;
+                skills[3] = currentStudent.artistic_skills;
+                skills[4] = currentStudent.computer_usage_skills;
+                skills[5] = currentStudent.programming_skills;
+                skills[6] = currentStudent.graphics_programming_skills;
+                skills[7] = currentStudent.human_computer_interaction_programming_skills;
+                skills[8] = currentStudent.user_experience_evaluation_skills;
+                skills[9] = currentStudent.communication_skills;
+                skills[10] = currentStudent.collaboration_skills;
+                skills[11] = currentStudent.code_repository_skills;
+            }
+
+            //skill values
+            var points = "\b";
+            for (let j = 0; j < 12; j++) {
+                //x
+                points += (margin + (j * parCoordsWidth / 12) + 3);
+                points += ", ";
+                //y
+                points += ((parCoordsHeight + parCoordsHeight / 10) - (parCoordsHeight / 20 + (skills[j] * parCoordsHeight / 10)));
+                points += ", ";
+            }
+            points = points.substring(1, points.length - 2);
+
+            var polyLine = svgParCoords.append("polyline")
+                .style("stroke", colors)
+                .style("fill", "none")
+                .attr("points", points)
+                .on("mouseover", function (d) {
+                    d3.select(this)
+                        .style("stroke-width", 5)
+                        .style("stroke", "red");
+                })
+                .on("mouseout", function (d) {
+                    d3.select(this)
+                        .style("stroke-width", 1)
+                        .style("stroke", "black");
+                });
+
+        }
+
+    });
+
+</script>
+
+</body>

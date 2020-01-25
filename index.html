@@ -27,15 +27,27 @@
 
     var dataPath = "skills_hobbies.csv";
 
+    var margin = 50;
+
     var parCoordsWidth = 1200;
     var parCoordsHeight = 300;
 
-    var margin = 50;
+    var pieChartWidth = 500;
+    var pieChartHeight = 500;
+    var pieChartRadius = Math.min(pieChartWidth, pieChartHeight) / 2 - margin;
+    var pieChartInnerRadius = 100;
 
     var svgParCoords = d3.select("body")
         .append("svg")
         .attr("width", parCoordsWidth + 2 * margin)
         .attr("height", parCoordsHeight);
+
+    var svgPieChart = d3.select("body")
+        .append("svg")
+        .attr("width", pieChartWidth)
+        .attr("height", pieChartHeight)
+        .append("g")
+        .attr("transform", "translate(" + pieChartWidth / 2 + "," + pieChartHeight / 2 + ")");
 
     for (let i = 0; i < 12; i++) {
         console.log(i);
@@ -110,9 +122,20 @@
                 skills[10] = currentStudent.collaboration_skills;
                 skills[11] = currentStudent.code_repository_skills;
             }
+            var pieChartData = {a: 10/skills[0], b: 10/skills[1], c:10/skills[2], d:10/skills[3],
+                e:10/skills[4], f:10/skills[6], g:10/skills[7], h:10/skills[8],
+                i:10/skills[9], j: 10/skills[10], k: 10/skills[11]};
+            var pieChartColorScale = d3.scaleOrdinal()
+                .domain(pieChartData)
+                .range(["#101010", "#202020", "#303030", "#404040", "#505050","#606060", "#707070", "#808080", "#909090", "#a0a0a0", "#b0b0b0"]);
+
+            var pie = d3.pie()
+                .value(function(d) {return d.value; });
+            var data_ready = pie(d3.entries(pieChartData));
+
 
             //skill values
-            var points = "\b";
+            var points = "";
             for (let j = 0; j < 12; j++) {
                 //x
                 points += (margin + (j * parCoordsWidth / 12) + 3);
@@ -131,11 +154,29 @@
                     d3.select(this)
                         .style("stroke-width", 5)
                         .style("stroke", "red");
+
+                    console.log(pieChartData);
+                    //pie chart of skills
+                    svgPieChart
+                        .selectAll()
+                        .data(data_ready)
+                        .enter()
+                        .append('path')
+                        .attr('d', d3.arc()
+                            .innerRadius(pieChartInnerRadius)         // This is the size of the donut hole
+                            .outerRadius(pieChartRadius)
+                        )
+                        .attr('fill', function(d){ return(pieChartColorScale(d.data.key)) })
+                        .attr("stroke", "black")
+                        .style("stroke-width", "2px")
+                        .style("opacity", 0.7)
+
                 })
                 .on("mouseout", function (d) {
                     d3.select(this)
                         .style("stroke-width", 1)
                         .style("stroke", "black");
+                    svgPieChart.selectAll("*").remove();
                 });
 
         }

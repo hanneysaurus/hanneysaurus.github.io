@@ -32,22 +32,16 @@
     var parCoordsWidth = 1200;
     var parCoordsHeight = 300;
 
-    var pieChartWidth = 500;
-    var pieChartHeight = 500;
+    var pieChartWidth = 200;
+    var pieChartHeight = 200;
     var pieChartRadius = Math.min(pieChartWidth, pieChartHeight) / 2 - margin;
-    var pieChartInnerRadius = 100;
+    var pieChartInnerRadius = 20;
 
     var svgParCoords = d3.select("body")
         .append("svg")
         .attr("width", parCoordsWidth + 2 * margin)
         .attr("height", parCoordsHeight);
 
-    var svgPieChart = d3.select("body")
-        .append("svg")
-        .attr("width", pieChartWidth)
-        .attr("height", pieChartHeight)
-        .append("g")
-        .attr("transform", "translate(" + pieChartWidth / 2 + "," + pieChartHeight / 2 + ")");
 
     for (let i = 0; i < 12; i++) {
         console.log(i);
@@ -86,25 +80,35 @@
             var hobbies = new Array(8);
             {
                 //orange
-                hobbies[0] = currentStudent.sports;
+                hobbies[0] = ("X" === currentStudent.sports ? "orange" : "");
                 //blue
-                hobbies[1] = currentStudent.multimedia;
+                hobbies[1] = ("X" === currentStudent.multimedia ? "blue" : "");
                 //teal
-                hobbies[2] = currentStudent.art;
+                hobbies[2] = ("X" === currentStudent.art ? "aqua" : "");
                 //darkgreen
-                hobbies[3] = currentStudent.science;
+                hobbies[3] = ("X" === currentStudent.science ? "darkgreen" : "");
                 //yellow
-                hobbies[4] = currentStudent.travelling;
+                hobbies[4] = ("X" === currentStudent.travelling ? "yellow" : "");
                 //red
-                hobbies[5] = currentStudent.economics;
+                hobbies[5] = ("X" === currentStudent.economics ? "red" : "");
                 //purple
-                hobbies[6] = currentStudent.technology;
+                hobbies[6] = ("X" === currentStudent.technology ? "purple" : "");
                 //lightgreen
-                hobbies[7] = currentStudent.sustainability;
+                hobbies[7] = ("X" === currentStudent.sustainability ? "lightgreen" : "");
             }
 
             //hobby colors
-            var colors = "orange";
+            var colors = "black";
+            var colorSet = false;
+            var rnd = Math.floor(Math.random() * hobbies.length);
+            while (!colorSet) {
+                if (hobbies[rnd] !== null) {
+                    colors = hobbies[rnd];
+                    colorSet = true;
+                } else {
+                    rnd = Math.floor(Math.random() * hobbies.length);
+                }
+            }
 
             //read skills
             var skills = new Array(12);
@@ -122,17 +126,46 @@
                 skills[10] = currentStudent.collaboration_skills;
                 skills[11] = currentStudent.code_repository_skills;
             }
-            var pieChartData = {a: 10/skills[0], b: 10/skills[1], c:10/skills[2], d:10/skills[3],
-                e:10/skills[4], f:10/skills[6], g:10/skills[7], h:10/skills[8],
-                i:10/skills[9], j: 10/skills[10], k: 10/skills[11]};
+
+            var svgPieChart = d3.select("body")
+                .append("svg")
+                .attr("width", pieChartWidth)
+                .attr("height", pieChartHeight)
+                .append("g")
+                .attr("transform", "translate(" + pieChartWidth / 2 + "," + pieChartHeight / 2 + ")")
+;
+
+            var pieChartData = {
+                a: 10 / skills[0], b: 10 / skills[1], c: 10 / skills[2], d: 10 / skills[3],
+                e: 10 / skills[4], f: 10 / skills[6], g: 10 / skills[7], h: 10 / skills[8],
+                i: 10 / skills[9], j: 10 / skills[10], k: 10 / skills[11]
+            };
             var pieChartColorScale = d3.scaleOrdinal()
                 .domain(pieChartData)
-                .range(["#101010", "#202020", "#303030", "#404040", "#505050","#606060", "#707070", "#808080", "#909090", "#a0a0a0", "#b0b0b0"]);
+                .range(["#ffffff", "#eeeeee", "#dddddd", "#cccccc", "#bbbbbb", "#aaaaaa", "#999999", "#888888", "#777777", "#666666", "#555555"]);
 
             var pie = d3.pie()
-                .value(function(d) {return d.value; });
+                .value(function (d) {
+                    return d.value;
+                });
             var data_ready = pie(d3.entries(pieChartData));
 
+            //pie chart of skills
+            svgPieChart
+                .selectAll()
+                .data(data_ready)
+                .enter()
+                .append('path')
+                .attr('d', d3.arc()
+                    .innerRadius(pieChartInnerRadius)
+                    .outerRadius(pieChartRadius)
+                )
+                .attr('fill', function (d) {
+                    return (pieChartColorScale(d.data.key))
+                })
+                .attr("stroke", "black")
+                .style("stroke-width", 2)
+                .style("opacity", 0.7);
 
             //skill values
             var points = "";
@@ -144,39 +177,20 @@
                 points += ((parCoordsHeight + parCoordsHeight / 10) - (parCoordsHeight / 20 + (skills[j] * parCoordsHeight / 10)));
                 points += ", ";
             }
-            points = points.substring(1, points.length - 2);
+            points = points.substring(0, points.length - 2);
 
             var polyLine = svgParCoords.append("polyline")
+                .style("stroke-width", 2)
                 .style("stroke", colors)
                 .style("fill", "none")
                 .attr("points", points)
                 .on("mouseover", function (d) {
                     d3.select(this)
-                        .style("stroke-width", 5)
-                        .style("stroke", "red");
-
-                    console.log(pieChartData);
-                    //pie chart of skills
-                    svgPieChart
-                        .selectAll()
-                        .data(data_ready)
-                        .enter()
-                        .append('path')
-                        .attr('d', d3.arc()
-                            .innerRadius(pieChartInnerRadius)         // This is the size of the donut hole
-                            .outerRadius(pieChartRadius)
-                        )
-                        .attr('fill', function(d){ return(pieChartColorScale(d.data.key)) })
-                        .attr("stroke", "black")
-                        .style("stroke-width", "2px")
-                        .style("opacity", 0.7)
-
+                        .style("stroke-width", 5);
                 })
                 .on("mouseout", function (d) {
                     d3.select(this)
-                        .style("stroke-width", 1)
-                        .style("stroke", "black");
-                    svgPieChart.selectAll("*").remove();
+                        .style("stroke-width", 2)
                 });
 
         }

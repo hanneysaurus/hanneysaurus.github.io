@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Project 1 - DH2321 Information Visualization</title>
+<title>Project 2</title>
 <style>
 
     body {
@@ -18,185 +18,21 @@
 
 </style>
 <body>
-<h1>DH2321 Information Visualization 2020</h1>
-<h2>Hannah Clara Bayat - Project 1</h2>
+<h1>DH2321 Information Visualization</h1>
+<h2>Project 2</h2>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="peetwo.js"></script>
 
 <script>
-
-    var dataPath = "skills_hobbies.csv";
-
-    var margin = 50;
-
-    var parCoordsWidth = 1200;
-    var parCoordsHeight = 300;
-
-    var pieChartWidth = 200;
-    var pieChartHeight = 200;
-    var pieChartRadius = Math.min(pieChartWidth, pieChartHeight) / 2 - margin;
-    var pieChartInnerRadius = 20;
-
-    var svgParCoords = d3.select("body")
-        .append("svg")
-        .attr("width", parCoordsWidth + 2 * margin)
-        .attr("height", parCoordsHeight);
-
-
-    for (let i = 0; i < 12; i++) {
-        console.log(i);
-        var line = svgParCoords.append("line")
-            .attr("x1", margin + (i * parCoordsWidth / 12) + 3)
-            .attr("y1", 0)
-            .attr("x2", margin + (i * parCoordsWidth / 12) + 3)
-            .attr("y2", parCoordsHeight)
-            .attr("stroke-width", 1)
-            .attr("stroke", "black");
-        for (let j = 0; j < 10; j++) {
-            var scale = svgParCoords.append("line")
-                .attr("x1", margin + (i * parCoordsWidth / 12) + 6)
-                .attr("y1", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
-                .attr("x2", margin + (i * parCoordsWidth / 12))
-                .attr("y2", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
-                .attr("stroke-width", 1)
-                .attr("stroke", "black");
-
-            var scaleLabel = svgParCoords.append("text")
-                .attr("text-anchor", "end")
-                .attr("x", margin + (i * parCoordsWidth / 12) - 5)
-                .attr("y", parCoordsHeight / 20 + (j * parCoordsHeight / 10))
-                .text(10 - j);
-        }
-    }
-
-    d3.csv(dataPath).then(function (data) {
-
-        for (let i = 0; i < data.length; i++) {
-            //TODO: add name somewhere
-            console.log(data[i].Name);
-            var currentStudent = data[i];
-
-            //read hobbies
-            var hobbies = new Array(8);
-            {
-                //orange
-                hobbies[0] = ("X" === currentStudent.sports ? "orange" : "");
-                //blue
-                hobbies[1] = ("X" === currentStudent.multimedia ? "blue" : "");
-                //teal
-                hobbies[2] = ("X" === currentStudent.art ? "aqua" : "");
-                //darkgreen
-                hobbies[3] = ("X" === currentStudent.science ? "darkgreen" : "");
-                //yellow
-                hobbies[4] = ("X" === currentStudent.travelling ? "yellow" : "");
-                //red
-                hobbies[5] = ("X" === currentStudent.economics ? "red" : "");
-                //purple
-                hobbies[6] = ("X" === currentStudent.technology ? "purple" : "");
-                //lightgreen
-                hobbies[7] = ("X" === currentStudent.sustainability ? "lightgreen" : "");
-            }
-
-            //hobby colors
-            var colors = "black";
-            var colorSet = false;
-            var rnd = Math.floor(Math.random() * hobbies.length);
-            while (!colorSet) {
-                if (hobbies[rnd] !== null) {
-                    colors = hobbies[rnd];
-                    colorSet = true;
-                } else {
-                    rnd = Math.floor(Math.random() * hobbies.length);
-                }
-            }
-
-            //read skills
-            var skills = new Array(12);
-            {
-                skills[0] = currentStudent.visualization_skills;
-                skills[1] = currentStudent.statistical_skills;
-                skills[2] = currentStudent.mathematic_skills;
-                skills[3] = currentStudent.artistic_skills;
-                skills[4] = currentStudent.computer_usage_skills;
-                skills[5] = currentStudent.programming_skills;
-                skills[6] = currentStudent.graphics_programming_skills;
-                skills[7] = currentStudent.human_computer_interaction_programming_skills;
-                skills[8] = currentStudent.user_experience_evaluation_skills;
-                skills[9] = currentStudent.communication_skills;
-                skills[10] = currentStudent.collaboration_skills;
-                skills[11] = currentStudent.code_repository_skills;
-            }
-
-            var svgPieChart = d3.select("body")
-                .append("svg")
-                .attr("width", pieChartWidth)
-                .attr("height", pieChartHeight)
-                .append("g")
-                .attr("transform", "translate(" + pieChartWidth / 2 + "," + pieChartHeight / 2 + ")")
-;
-
-            var pieChartData = {
-                a: 10 / skills[0], b: 10 / skills[1], c: 10 / skills[2], d: 10 / skills[3],
-                e: 10 / skills[4], f: 10 / skills[6], g: 10 / skills[7], h: 10 / skills[8],
-                i: 10 / skills[9], j: 10 / skills[10], k: 10 / skills[11]
-            };
-            var pieChartColorScale = d3.scaleOrdinal()
-                .domain(pieChartData)
-                .range(["#ffffff", "#eeeeee", "#dddddd", "#cccccc", "#bbbbbb", "#aaaaaa", "#999999", "#888888", "#777777", "#666666", "#555555"]);
-
-            var pie = d3.pie()
-                .value(function (d) {
-                    return d.value;
-                });
-            var data_ready = pie(d3.entries(pieChartData));
-
-            //pie chart of skills
-            svgPieChart
-                .selectAll()
-                .data(data_ready)
-                .enter()
-                .append('path')
-                .attr('d', d3.arc()
-                    .innerRadius(pieChartInnerRadius)
-                    .outerRadius(pieChartRadius)
-                )
-                .attr('fill', function (d) {
-                    return (pieChartColorScale(d.data.key))
-                })
-                .attr("stroke", "black")
-                .style("stroke-width", 2)
-                .style("opacity", 0.7);
-
-            //skill values
-            var points = "";
-            for (let j = 0; j < 12; j++) {
-                //x
-                points += (margin + (j * parCoordsWidth / 12) + 3);
-                points += ", ";
-                //y
-                points += ((parCoordsHeight + parCoordsHeight / 10) - (parCoordsHeight / 20 + (skills[j] * parCoordsHeight / 10)));
-                points += ", ";
-            }
-            points = points.substring(0, points.length - 2);
-
-            var polyLine = svgParCoords.append("polyline")
-                .style("stroke-width", 2)
-                .style("stroke", colors)
-                .style("fill", "none")
-                .attr("points", points)
-                .on("mouseover", function (d) {
-                    d3.select(this)
-                        .style("stroke-width", 5);
-                })
-                .on("mouseout", function (d) {
-                    d3.select(this)
-                        .style("stroke-width", 2)
-                });
-
-        }
-
-    });
-
+    peetwo(false);
 </script>
+<div id="option">
+
+    <input name="updateButton"
+           type="button"
+           value="Find my country"
+           onclick="peetwo(true)"/>
+</div>
 
 </body>

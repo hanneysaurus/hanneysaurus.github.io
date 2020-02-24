@@ -575,6 +575,7 @@ function peetwo(button) {
 
     });
 
+    d3.select('body').append('svg').attr('height', 25).attr('width', 800).append('text').text("Link to discovery process: https://docs.google.com/document/d/1fAWx_XumdvlArUtNF6AYgaziNKptfMygTKuv80sHGkg/edit?usp=sharing").attr('transform', 'translate(0 20)');
     function drawGraph() {
         d3.csv('./data.csv').then(function (data) {
             //get Data for chosen wave

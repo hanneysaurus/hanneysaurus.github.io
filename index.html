@@ -6,9 +6,6 @@
     <title>DM2518 Lab 1</title>
     <style>
         #map {
-            position: absolute;
-            top: 25%;
-            left: 25%;
             width: 800px;
             height: 400px;
             background: grey;
@@ -25,18 +22,17 @@
     function initMap() {
         var kth_coords = {lat: 59.3498092, lng: 18.0684758};
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: kth_coords
+            zoom: 17,
+            center: kth_coords,
+            mapTypeId: 'hybrid',
+            rotateControl: true,
+            tilt: 45
         });
-        /*var marker = new google.maps.Marker({
-            position: kth_coords,
-            map: map
-        });*/
     }
 </script>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpB09aPu9o0kHbeUjnm9f_hpdCk7MSZ4A&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap">
 </script>
 </body>
 

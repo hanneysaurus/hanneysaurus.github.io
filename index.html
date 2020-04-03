@@ -107,8 +107,11 @@
 
     }
 
-    function onZoomClick() {
-
+    function onZoomInClick() {
+        map.setZoom(map.getZoom() + 1);
+    }
+    function onZoomOutClick() {
+        map.setZoom(map.getZoom() - 1);
     }
 
     function onPanClick() {

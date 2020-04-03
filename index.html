@@ -9,7 +9,7 @@
         @media screen and (max-width: 100px) {
             #map {
                 width: 100%;
-                height: 50%;
+                height: 100%;
             }
         }
 
@@ -32,12 +32,19 @@
             width: 100%;
         }
 
-        #zoom_button {
-            background: lightyellow;
+        #zoomin_button {
+            background: lightcyan;
+        }
+        #zoomout_button {
+            background: lightblue;
         }
 
         #pan_button {
             background: lightgreen;
+        }
+
+        #reset_button {
+            background: lightpink;
         }
 
     </style>
@@ -45,35 +52,41 @@
 
 <body>
 <div class="layout">
-    <h1>DM2518 - Lab 1</h1>
+    <h2>DM2518 - Lab 1</h2>
     <div id="map"></div>
     <div class="buttonDiv">
-        <button id="zoom_button" class="button" onclick="onZoomClick()">Zoom</button>
+        <button id="zoomin_button" class="button" onclick="onZoomInClick()">Zoom In</button>
+        <button id="zoomout_button" class="button" onclick="onZoomOutClick()">Zoom Out</button>
+    </div>
+    <div class="buttonDiv">
+        <button id="reset_button" class="button" onclick="onResetClick()">Reset</button>
         <button id="pan_button" class="button" onclick="onPanClick()">Pan</button>
     </div>
 </div>
 
 <script>
+    var static_marker;
+    var dynamic_marker;
+    var map;
+    var kth_coords = {lat: 59.3498092, lng: 18.0684758};
+    var goal_coords = {lat: 59.3493466, lng: 18.0675755};
+
     function initMap() {
-        var kth_coords = {lat: 59.3498092, lng: 18.0684758};
-        var goal_coords = {lat: 59.3493466, lng: 18.0675755};
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 17,
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
             center: kth_coords,
             mapTypeId: 'hybrid',
             rotateControl: true,
             tilt: 45,
-
             gestureHandling: 'greedy'
         });
-        var static_marker = new google.maps.Marker({
+        static_marker = new google.maps.Marker({
             position: kth_coords,
             title: "KTH Royal Institute of Technology",
             animation: google.maps.Animation.DROP,
-
             map: map
         });
-        var dynamic_marker = new google.maps.Marker({
+        dynamic_marker = new google.maps.Marker({
             position: goal_coords,
             title: "Destination",
             icon: {
@@ -84,8 +97,8 @@
             animation: google.maps.Animation.BOUNCE,
             map: map
         });
-        dynamic_marker.addListener('click', function () {
-            dynamic_marker.setAnimation(google.maps.Animation.DROP);
+
+        dynamic_marker.addListener('dragend', function () {
             map.setCenter(dynamic_marker.getPosition());
         });
     }
@@ -100,6 +113,11 @@
 
     function onPanClick() {
 
+    }
+
+    function onResetClick() {
+        dynamic_marker.setPosition(goal_coords);
+        map.setCenter(kth_coords);
     }
 
 </script>

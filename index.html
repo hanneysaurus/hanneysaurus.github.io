@@ -2,13 +2,18 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<!-- tried to go into fullscreen but didn't work
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
+-->
 
 <head>
+    <!-- fullscreen attempt
     <link rel="manifest" href="manifest.json">
-    <link rel="shortcut icon" href="images/icon_24px.png" />
-    <link rel="icon" href="images/icon_24px.png" />
+    -->
+
+    <link rel="shortcut icon" href="images/icon_24px.png"/>
+    <link rel="icon" href="images/icon_24px.png"/>
     <title>DM2518 Lab 1</title>
     <style>
         @media screen and (max-width: 100px) {
@@ -53,6 +58,10 @@
             background: lightpink;
         }
 
+        #fullscreen_button {
+            background: plum;
+        }
+
     </style>
 </head>
 
@@ -70,6 +79,10 @@
     <div>
         <button id="reset_button" class="button" onclick="onResetClick()">Reset</button>
     </div>
+    <div>
+        <button id="fullscreen_button" class="button">Fullscreen</button>
+    </div>
+
 </div>
 
 <script>
@@ -78,6 +91,11 @@
     var map;
     var kth_coords = {lat: 59.3498092, lng: 18.0684758};
     var goal_coords = {lat: 59.3493466, lng: 18.0675755};
+
+    var fullscreen_button = document.getElementById("fullscreen_button");
+    fullscreen_button.addEventListener("click", function() {
+        document.body.requestFullscreen();
+    }, false);
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -141,3 +159,15 @@
 </body>
 
 </html>
+
+<!-- //TODO:
+•	why not add a suitable start-up screen
+x	hiding the address bar
+•	setting colors to periphery elements
+o	site-specified icon on the desktop
+x	hide status bar - not possible for ios apparently
+x	go full screen tried – didn’t work
+•	give a notification if a site offers to "install" it as web-app
+•	support for a splash-screen while loading the content
+o   control the viewport to provide for a full screen experience
+-->

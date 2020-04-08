@@ -1,0 +1,14 @@
+{
+  "short_name": "DM2518 Lab 1",
+  "name": "Hannah Clara Bayat - DM2518 Lab 1, 2020",
+  "icons": [
+    {
+      "src": "icon_24px.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}

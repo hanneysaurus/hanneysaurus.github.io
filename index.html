@@ -4,6 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <head>
+    <link rel="shortcut icon" href="images/icon.png" />
+    <link rel="icon" href="images/icon.png" />
     <title>DM2518 Lab 1</title>
     <style>
         @media screen and (max-width: 100px) {
@@ -35,6 +37,7 @@
         #zoomin_button {
             background: lightcyan;
         }
+
         #zoomout_button {
             background: lightblue;
         }
@@ -59,8 +62,10 @@
         <button id="zoomout_button" class="button" onclick="onZoomOutClick()">Zoom Out</button>
     </div>
     <div class="buttonDiv">
-        <button id="reset_button" class="button" onclick="onResetClick()">Reset</button>
         <button id="pan_button" class="button" onclick="onPanClick()">Pan</button>
+    </div>
+    <div>
+        <button id="reset_button" class="button" onclick="onResetClick()">Reset</button>
     </div>
 </div>
 
@@ -110,12 +115,13 @@
     function onZoomInClick() {
         map.setZoom(map.getZoom() + 1);
     }
+
     function onZoomOutClick() {
         map.setZoom(map.getZoom() - 1);
     }
 
     function onPanClick() {
-
+        map.getTilt() === 45 ? map.setTilt(0) : map.setTilt(45);
     }
 
     function onResetClick() {

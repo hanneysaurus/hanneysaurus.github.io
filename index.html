@@ -1,19 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
+<html>
 
 <head>
-    <title>DM2518 Lab 2</title>
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <title>DM2518 - Lab 2</title>
 </head>
 
 <body>
-<div class="layout">
-    <h2>DM2518 - Lab 2</h2>
+<h2>DM2518 - Lab 2</h2>
 
-</div>
+<ons-navigator swipeable id="myNavigator" page="mainpage.html"></ons-navigator>
+
+<template id="mainpage.html">
+    <ons-page id="mainpage">
+        <ons-toolbar>
+            <div class="center">Main Page</div>
+        </ons-toolbar>
+
+        <p>This is the main page.</p>
+
+        <ons-button id="push-button">Sub page</ons-button>
+    </ons-page>
+</template>
+
+<template id="subpage1.html">
+    <ons-page id="subpage1">
+        <ons-toolbar>
+            <div class="left"><ons-back-button>Main Page</ons-back-button></div>
+            <div class="center"></div>
+        </ons-toolbar>
+
+        <p>This is the first sub page.</p>
+    </ons-page>
+</template>
+
 </body>
+
+<script>
+
+    document.addEventListener('init', function(event) {
+        var page = event.target;
+
+        if (page.id === 'mainpage') {
+            page.querySelector('#push-button').onclick = function() {
+                document.querySelector('#myNavigator').pushPage('subpage1.html', {data: {title: 'Subpage 1'}});
+            };
+        } else if (page.id === 'subpage1') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        }
+    });
+
+</script>
 
 </html>

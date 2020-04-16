@@ -9,30 +9,163 @@
 </head>
 
 <body>
-<h2>DM2518 - Lab 2</h2>
+<style>
+
+    .mainpage_layout {
+        padding: 10px;
+    }
+
+    .subpage_layout {
+        padding: 20px;
+    }
+
+    .mainpage_element {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .image {
+        width: 25%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button {
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        background: dodgerblue;
+    }
+
+    .aboutbutton {
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        background: limegreen;
+    }
+
+</style>
 
 <ons-navigator swipeable id="myNavigator" page="mainpage.html"></ons-navigator>
 
 <template id="mainpage.html">
+
     <ons-page id="mainpage">
+
         <ons-toolbar>
             <div class="center">Main Page</div>
         </ons-toolbar>
+        <section class="mainpage_layout">
+            <h2>DM2518 - Lab 2</h2>
 
-        <p>This is the main page.</p>
+            <p>A listing of the three most recent Academy Award winners for Best Picture</p>
 
-        <ons-button id="push-button">Sub page</ons-button>
+            <ons-col class="mainpage_element">
+                <ons-button id="subpage2020_button" class="button">2020</ons-button>
+            </ons-col>
+            <ons-col class="mainpage_element">
+                <ons-button id="subpage2019_button" class="button">2019</ons-button>
+            </ons-col>
+            <ons-col class="mainpage_element">
+                <ons-button id="subpage2018_button" class="button">2018</ons-button>
+            </ons-col>
+            <ons-col class="mainpage_element">
+                <ons-button id="aboutpage_button" class="aboutbutton">About</ons-button>
+            </ons-col>
+        </section>
+
     </ons-page>
 </template>
 
-<template id="subpage1.html">
-    <ons-page id="subpage1">
+
+<template id="subpage2020.html">
+    <ons-page id="subpage2020">
         <ons-toolbar>
-            <div class="left"><ons-back-button>Main Page</ons-back-button></div>
+            <div class="left">
+                <ons-back-button>Main Page</ons-back-button>
+            </div>
             <div class="center"></div>
         </ons-toolbar>
 
-        <p>This is the first sub page.</p>
+        <section class="subpage_layout">
+
+            <img id="parasite_poster" class="image" src="images/parasite_poster.png">
+
+            <h2 style="font-weight: bold">Parasite</h2>
+            <p>year: 2019</p>
+            <p>director: Bong Joon Ho</p>
+            <p>starring: Kang-ho Song, Sun-kyun Lee, Yeo-jeong Jo, Woo-sik Choi</p>
+            <p>A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.</p>
+        </section>
+
+    </ons-page>
+</template>
+
+<template id="subpage2019.html">
+    <ons-page id="subpage2019">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Main Page</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+
+        <section class="subpage_layout">
+
+            <img id="green_book_poster" class="image" src="images/green_book_poster.png">
+
+            <h2 style="font-weight: bold">Green Book</h2>
+            <p>year: 2018</p>
+            <p>director: Peter Farrelly</p>
+            <p>starring: Viggo Mortensen, Mahershala Ali, Linda Cardellini, Sebastian Maniscalco</p>
+            <p>A working-class Italian-American bouncer becomes the driver of an African-American classical pianist on a tour of venues through the 1960s American South.</p>
+        </section>
+
+    </ons-page>
+</template>
+
+<template id="subpage2018.html">
+    <ons-page id="subpage2018">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Main Page</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+
+        <section class="subpage_layout">
+
+            <img id="the_shape_of_water_poster" class="image" src="images/the_shape_of_water_poster.png">
+
+            <h2 style="font-weight: bold">The Shape of Water</h2>
+            <p>year: 2017</p>
+            <p>director: Guillermo del Toro</p>
+            <p>starring: Sally Hawkins, Octavia Spencer, Michael Shannon, Doug Jones</p>
+            <p>At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.</p>
+        </section>
+
+    </ons-page>
+</template>
+
+<template id="aboutpage.html">
+    <ons-page id="aboutpage">
+        <ons-toolbar>
+            <div class="left">
+                <ons-back-button>Main Page</ons-back-button>
+            </div>
+            <div class="center"></div>
+        </ons-toolbar>
+
+        <section class="subpage_layout">
+            <h2 style="font-weight: bold; text-align: center" >About</h2>
+            <img id="team_picture" style="width: 50%; display: block; margin-left: auto; margin-right: auto;" src="images/team.jpg">
+            <h3>Team: Hannah Clara Bayat (1)</h3>
+            <p>The app shows the three most recent winners of the Academy Award for Best Picture, which is considered the best film of the previous year.</p>
+            <p>The Oscars are awarded each year by the Academy of Motion Picture, Arts and Sciences (AMPAS) in 24 different categoried and is considered to be the highest achievement in film.</p>
+            <p>The team was more interested in movies than in yoga positions and therefore decided to choose this topic. The data was manually required from www.imdb.com</p>
+        </section>
+
     </ons-page>
 </template>
 
@@ -40,14 +173,29 @@
 
 <script>
 
-    document.addEventListener('init', function(event) {
+    document.addEventListener('init', function (event) {
         var page = event.target;
 
         if (page.id === 'mainpage') {
-            page.querySelector('#push-button').onclick = function() {
-                document.querySelector('#myNavigator').pushPage('subpage1.html', {data: {title: 'Subpage 1'}});
+            page.querySelector('#subpage2020_button').onclick = function () {
+                document.querySelector('#myNavigator').pushPage('subpage2020.html', {data: {title: 'Parasite'}});
             };
-        } else if (page.id === 'subpage1') {
+            page.querySelector('#subpage2019_button').onclick = function () {
+                document.querySelector('#myNavigator').pushPage('subpage2019.html', {data: {title: 'Green Book'}});
+            };
+            page.querySelector('#subpage2018_button').onclick = function () {
+                document.querySelector('#myNavigator').pushPage('subpage2018.html', {data: {title: 'The Shape of Water'}});
+            };
+            page.querySelector('#aboutpage_button').onclick = function () {
+                document.querySelector('#myNavigator').pushPage('aboutpage.html', {data: {title: 'About'}});
+            };
+        } else if (page.id === 'subpage2020') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        } else if (page.id === 'subpage2019') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        } else if (page.id === 'subpage2018') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        } else if (page.id === 'aboutpage') {
             page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
         }
     });

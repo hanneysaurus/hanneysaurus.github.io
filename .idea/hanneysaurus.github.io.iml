@@ -8,5 +8,6 @@
     <orderEntry type="library" name="onsenui" level="application" />
     <orderEntry type="library" name="onsen-css-components" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="onsenui" level="application" />
   </component>
 </module>

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
     <title>DM2518 - Lab 2</title>
 </head>
 
@@ -19,30 +20,11 @@
         padding: 20px;
     }
 
-    .mainpage_element {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
     .image {
         width: 50%;
         display: block;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .button {
-        width: 100%;
-        text-align: center;
-        font-size: 20px;
-        background: dodgerblue;
-    }
-
-    .aboutbutton {
-        width: 100%;
-        text-align: center;
-        font-size: 20px;
-        background: limegreen;
     }
 
 </style>
@@ -53,26 +35,24 @@
 
     <ons-page id="mainpage">
 
-        <ons-toolbar>
-            <div class="center">Main Page</div>
-        </ons-toolbar>
         <section class="mainpage_layout">
             <h2>DM2518 - Lab 2</h2>
 
             <p>A listing of the three most recent Academy Award winners for Best Picture</p>
+            <ons-page>
+                <ons-tabbar swipeable position="auto">
+                    <!-- badge = 7 -->
+                    <ons-tab page="aboutpage.html" label="About" icon="fa-info" active>
+                    </ons-tab>
+                    <ons-tab page="subpage2020.html" label="2020" icon="fa-users" active-icon="fa-trophy">
+                    </ons-tab>
+                    <ons-tab page="subpage2019.html" label="2019" icon="fa-book" active-icon="fa-trophy">
+                    </ons-tab>
+                    <ons-tab page="subpage2018.html" label="2018" icon="fa-tint" active-icon="fa-trophy">
+                    </ons-tab>
+                </ons-tabbar>
+            </ons-page>
 
-            <ons-col class="mainpage_element">
-                <ons-button id="subpage2020_button" class="button">2020</ons-button>
-            </ons-col>
-            <ons-col class="mainpage_element">
-                <ons-button id="subpage2019_button" class="button">2019</ons-button>
-            </ons-col>
-            <ons-col class="mainpage_element">
-                <ons-button id="subpage2018_button" class="button">2018</ons-button>
-            </ons-col>
-            <ons-col class="mainpage_element">
-                <ons-button id="aboutpage_button" class="aboutbutton">About</ons-button>
-            </ons-col>
         </section>
 
     </ons-page>
@@ -81,12 +61,6 @@
 
 <template id="subpage2020.html">
     <ons-page id="subpage2020">
-        <ons-toolbar>
-            <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
 
         <section class="subpage_layout">
 
@@ -96,7 +70,8 @@
             <p>year: 2019</p>
             <p>director: Bong Joon Ho</p>
             <p>starring: Kang-ho Song, Sun-kyun Lee, Yeo-jeong Jo, Woo-sik Choi</p>
-            <p>A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.</p>
+            <p>A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their
+                easy life gets complicated when their deception is threatened with exposure.</p>
         </section>
 
     </ons-page>
@@ -104,12 +79,6 @@
 
 <template id="subpage2019.html">
     <ons-page id="subpage2019">
-        <ons-toolbar>
-            <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
 
         <section class="subpage_layout">
 
@@ -119,7 +88,8 @@
             <p>year: 2018</p>
             <p>director: Peter Farrelly</p>
             <p>starring: Viggo Mortensen, Mahershala Ali, Linda Cardellini, Sebastian Maniscalco</p>
-            <p>A working-class Italian-American bouncer becomes the driver of an African-American classical pianist on a tour of venues through the 1960s American South.</p>
+            <p>A working-class Italian-American bouncer becomes the driver of an African-American classical pianist on a
+                tour of venues through the 1960s American South.</p>
         </section>
 
     </ons-page>
@@ -127,12 +97,6 @@
 
 <template id="subpage2018.html">
     <ons-page id="subpage2018">
-        <ons-toolbar>
-            <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
 
         <section class="subpage_layout">
 
@@ -142,7 +106,8 @@
             <p>year: 2017</p>
             <p>director: Guillermo del Toro</p>
             <p>starring: Sally Hawkins, Octavia Spencer, Michael Shannon, Doug Jones</p>
-            <p>At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.</p>
+            <p>At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an
+                amphibious creature that is being held in captivity.</p>
         </section>
 
     </ons-page>
@@ -150,20 +115,19 @@
 
 <template id="aboutpage.html">
     <ons-page id="aboutpage">
-        <ons-toolbar>
-            <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
-            </div>
-            <div class="center"></div>
-        </ons-toolbar>
 
         <section class="subpage_layout">
-            <h2 style="font-weight: bold; text-align: center" >About</h2>
-            <img id="team_picture" style="width: 75%; display: block; margin-left: auto; margin-right: auto;" src="images/team.jpg">
+            <h2 style="font-weight: bold; text-align: center">About</h2>
+            <img id="team_picture" style="width: 75%; display: block; margin-left: auto; margin-right: auto;"
+                 src="images/team.jpg">
             <h3>Team: Hannah Clara Bayat (1)</h3>
-            <p>The app shows the three most recent winners of the Academy Award for Best Picture, which is considered the best film of the previous year.</p>
-            <p>The Oscars are awarded each year by the Academy of Motion Picture, Arts and Sciences (AMPAS) in 24 different categories and is considered to be the highest achievement in film.</p>
-            <p>The team was more interested in movies than in yoga positions and therefore decided to choose this topic. The data was required manually from the <a href="https://www.imdb.com/">Internet Movie Database</a> (IMDb).</p>
+            <p>The app shows the three most recent winners of the Academy Award for Best Picture, which is considered
+                the best film of the previous year.</p>
+            <p>The Oscars are awarded each year by the Academy of Motion Picture, Arts and Sciences (AMPAS) in 24
+                different categories and is considered to be the highest achievement in film.</p>
+            <p>The team was more interested in movies than in yoga positions and therefore decided to choose this topic.
+                The data was required manually from the <a href="https://www.imdb.com/">Internet Movie Database</a>
+                (IMDb).</p>
         </section>
 
     </ons-page>
@@ -172,32 +136,9 @@
 </body>
 
 <script>
-
-    document.addEventListener('init', function (event) {
-        var page = event.target;
-
-        if (page.id === 'mainpage') {
-            page.querySelector('#subpage2020_button').onclick = function () {
-                document.querySelector('#myNavigator').pushPage('subpage2020.html', {data: {title: 'Parasite'}});
-            };
-            page.querySelector('#subpage2019_button').onclick = function () {
-                document.querySelector('#myNavigator').pushPage('subpage2019.html', {data: {title: 'Green Book'}});
-            };
-            page.querySelector('#subpage2018_button').onclick = function () {
-                document.querySelector('#myNavigator').pushPage('subpage2018.html', {data: {title: 'The Shape of Water'}});
-            };
-            page.querySelector('#aboutpage_button').onclick = function () {
-                document.querySelector('#myNavigator').pushPage('aboutpage.html', {data: {title: 'About'}});
-            };
-        } else if (page.id === 'subpage2020') {
-            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        } else if (page.id === 'subpage2019') {
-            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        } else if (page.id === 'subpage2018') {
-            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        } else if (page.id === 'aboutpage') {
-            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        }
+    document.addEventListener('prechange', function (event) {
+        document.querySelector('ons-toolbar .center')
+            .innerHTML = event.tabItem.getAttribute('label');
     });
 
 </script>

@@ -59,14 +59,46 @@
     }
 
 </style>
-
-<ons-navigator swipeable id="myNavigator" page="mainpage.html"></ons-navigator>
+<ons-navigator swipeable id="myNavigator" page="mainpage.html">
+    <ons-page>
+        <ons-splitter>
+            <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+                <ons-page>
+                    <ons-list>
+                        <ons-list-item onclick="fn.load('mainpage.html')" tappable>
+                            Home
+                        </ons-list-item>
+                        <ons-list-item onclick="fn.load('subpage2020.html')" tappable>
+                            2020 Winner
+                        </ons-list-item>
+                        <ons-list-item onclick="fn.load('subpage2019.html')" tappable>
+                            2019 Winner
+                        </ons-list-item>
+                        <ons-list-item onclick="fn.load('subpage2018.html')" tappable>
+                            2018 Winner
+                        </ons-list-item>
+                        <ons-list-item onclick="fn.load('aboutpage.html')" tappable>
+                            About
+                        </ons-list-item>
+                    </ons-list>
+                </ons-page>
+            </ons-splitter-side>
+            <ons-splitter-content id="content" page="mainpage.html">
+            </ons-splitter-content>
+        </ons-splitter>
+    </ons-page>
+</ons-navigator>
 
 <template id="mainpage.html">
 
     <ons-page id="mainpage">
 
         <ons-toolbar class="header">
+            <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                    <ons-icon icon="md-menu"></ons-icon>
+                </ons-toolbar-button>
+            </div>
             <div class="center">Main Page</div>
         </ons-toolbar>
         <section class="mainpage_layout">
@@ -91,19 +123,17 @@
     </ons-page>
 </template>
 
-
 <template id="subpage2020.html">
     <ons-page id="subpage2020">
         <ons-toolbar class="header">
             <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
+                <ons-back-button onClick="fn.load('mainpage.html')">Main Page</ons-back-button>
             </div>
-            <div class="center"></div>
-            <div class="right" style="text-align: center; padding-bottom: 5px; background: red; font-size:18px">
-                <p>seen</p>
-            </div>
-            <div class="right" style="background: blue; margin-top: 10px; margin-right: 100px">
-                <ons-switch></ons-switch>
+            <div class="center">Parasite</div>
+            <div class="right">
+                <ons-toolbar-button onclick="showTemplateDialog('parasite_dialog','dialog2020.html')"
+                                    style="padding: 20px">more
+                </ons-toolbar-button>
             </div>
         </ons-toolbar>
 
@@ -111,7 +141,16 @@
 
             <img id="parasite_poster" class="image" src="images/parasite_poster.png">
 
-            <h2 style="font-weight: bold">Parasite</h2>
+            <div style="display: inline-flex; flex-direction: row">
+                <h2 style="font-weight: bold">Parasite</h2>
+                <div style="text-align: end; margin-left: 100px; margin-top: auto; margin-bottom: auto; font-size:18px">
+                    <p>seen</p>
+                </div>
+                <div style="margin-top: auto; margin-bottom: auto">
+                    <ons-switch id="parasite_switch"></ons-switch>
+                </div>
+            </div>
+
             <p>year: 2019</p>
             <p>director: Bong Joon Ho</p>
             <p>starring: Kang-ho Song, Sun-kyun Lee, Yeo-jeong Jo, Woo-sik Choi</p>
@@ -122,20 +161,61 @@
     </ons-page>
 </template>
 
+<template id="dialog2020.html">
+    <ons-dialog id="parasite_dialog">
+        <div style="text-align: center; padding: 10px;">
+
+            <p style="font-weight: bold">
+                Parasite won in 4 categories at the 92nd Oscars including:
+            </p>
+            <p style="white-space: pre-line">
+                Best Director - Bong Joon Ho
+                Best Original Screenplay - Bong Joon Ho, Jin Won Han
+                Best International Feature Film - South Korea
+                Best Picture - Bong Joon Ho, Kwak Sin Ae
+            </p>
+            <p style="font-weight: bold">
+                The film was nominated for 2 more categories:
+            </p>
+            <p style="white-space: pre-line">
+                Best Production Design - Ha-junn Lee, Won-woo Cho
+                Best Editing - Jinmo Yang
+            </p>
+
+            <p>
+                <ons-button onclick="hideDialog('parasite_dialog')">Close</ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+</template>
+
 <template id="subpage2019.html">
     <ons-page id="subpage2019">
         <ons-toolbar class="header">
             <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
+                <ons-back-button onClick="fn.load('mainpage.html')">Main Page</ons-back-button>
             </div>
-            <div class="center"></div>
+            <div class="center">Green Book</div>
+            <div class="right">
+                <ons-toolbar-button onclick="showTemplateDialog('green_book_dialog','dialog2019.html')"
+                                    style="padding: 20px">more
+                </ons-toolbar-button>
+            </div>
         </ons-toolbar>
 
         <section class="subpage_layout">
 
             <img id="green_book_poster" class="image" src="images/green_book_poster.png">
 
-            <h2 style="font-weight: bold">Green Book</h2>
+            <div style="display: inline-flex; flex-direction: row">
+                <h2 style="font-weight: bold">Green Book</h2>
+                <div style="text-align: end; margin-left: 100px; margin-top: auto; margin-bottom: auto; font-size:18px">
+                    <p>seen</p>
+                </div>
+                <div style="margin-top: auto; margin-bottom: auto">
+                    <ons-switch id="green_book_switch"></ons-switch>
+                </div>
+            </div>
             <p>year: 2018</p>
             <p>director: Peter Farrelly</p>
             <p>starring: Viggo Mortensen, Mahershala Ali, Linda Cardellini, Sebastian Maniscalco</p>
@@ -146,20 +226,59 @@
     </ons-page>
 </template>
 
+<template id="dialog2019.html">
+    <ons-dialog id="green_book_dialog">
+        <div style="text-align: center; padding: 10px;">
+            <p style="font-weight: bold">
+                Green Book won in 3 categories at the 91st Oscars including:
+            </p>
+            <p style="white-space: pre-line">
+                Best Supporting Actor - Mahershala Ali
+                Best Original Screenplay - Nick Vallelonga, Brian Hayes Currie, Peter Farrelly
+                Best Picture - Jim Burke, Charles B. Wessler, Brian Hayes Currie, Peter Farrelly, Nick Vallelonga
+            </p>
+            <p style="font-weight: bold">
+                The film was nominated for 2 more categories:
+            </p>
+            <p style="white-space: pre-line">
+                Best Leading Actor - Viggo Mortensen
+                Best Editing - Patrick J. Don Vito
+            </p>
+
+            <p>
+                <ons-button onclick="hideDialog('green_book_dialog')">Close</ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+</template>
+
 <template id="subpage2018.html">
     <ons-page id="subpage2018">
         <ons-toolbar class="header">
             <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
+                <ons-back-button onClick="fn.load('mainpage.html')">Main Page</ons-back-button>
             </div>
-            <div class="center"></div>
+            <div class="center">The Shape of Water</div>
+            <div class="right">
+                <ons-toolbar-button onclick="showTemplateDialog('the_shape_of_water_dialog','dialog2018.html')"
+                                    style="padding: 20px">more
+                </ons-toolbar-button>
+            </div>
         </ons-toolbar>
 
         <section class="subpage_layout">
 
             <img id="the_shape_of_water_poster" class="image" src="images/the_shape_of_water_poster.png">
 
-            <h2 style="font-weight: bold">The Shape of Water</h2>
+            <div style="display: inline-flex; flex-direction: row">
+                <h2 style="font-weight: bold">The Shape of Water</h2>
+                <div style="text-align: end; margin-left: 100px; margin-top: auto; margin-bottom: auto; font-size:18px">
+                    <p>seen</p>
+                </div>
+                <div style="margin-top: auto; margin-bottom: auto">
+                    <ons-switch id="the_shape_of_water_switch"></ons-switch>
+                </div>
+            </div>
             <p>year: 2017</p>
             <p>director: Guillermo del Toro</p>
             <p>starring: Sally Hawkins, Octavia Spencer, Michael Shannon, Doug Jones</p>
@@ -170,17 +289,52 @@
     </ons-page>
 </template>
 
+<template id="dialog2018.html">
+    <ons-dialog id="the_shape_of_water_dialog">
+        <div style="text-align: center; padding: 10px;">
+
+            <p style="font-weight: bold; white-space: pre-line">
+                The Shape of Water won in 4 categories at the 90th Oscars including:
+            </p>
+            <p style="white-space: pre-line">
+                Best Director - Guillermo del Toro
+                Best Original Score - Alexandre Desplat
+                Best Production Design - Paul D. Austerberry, Shane Vieau, Jeffrey A. Melvin
+                Best Picture - Guillermo del Toro, J. Miles Dale
+            </p>
+            <p style="font-weight: bold">
+                The film was nominated for 9 more categories:
+            </p>
+            <p style="white-space: pre-line">
+                Best Leading Actress - Sally Hawkins
+                Best Supporting Actor - Richard Jenkins
+                Best Supporting Actress - Octavia Spencer
+                Best Original Screenplay - Guillermo del Toro, Vanessa Taylor
+                Best Cinematography - Dan Laustsen
+                Best Costume Design - Luis Sequeira
+                Best Sound Editing - Nathan Robitaille, Nelson Ferreira
+                Best Sound Mixing - Christian T. Cooke, Glen Gauthier, Brad Zoern
+                Best Editing - Sidney Wollinsky
+            </p>
+            </p>
+
+            <p>
+                <ons-button onclick="hideDialog('the_shape_of_water_dialog')">Close</ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+</template>
+
 <template id="aboutpage.html">
     <ons-page id="aboutpage">
         <ons-toolbar class="header">
             <div class="left">
-                <ons-back-button>Main Page</ons-back-button>
+                <ons-back-button onClick="fn.load('mainpage.html')">Main Page</ons-back-button>
             </div>
             <div class="center"></div>
         </ons-toolbar>
 
         <section class="subpage_layout">
-            <h2 style="font-weight: bold; text-align: center">About</h2>
             <img id="team_picture" style="width: 75%; display: block; margin-left: auto; margin-right: auto;"
                  src="images/team.jpg">
             <h3>Team: Hannah Clara Bayat (1)</h3>
@@ -226,6 +380,39 @@
             page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
         }
     });
+
+    var showTemplateDialog = function (id, html) {
+        var dialog = document.getElementById(id);
+
+        if (dialog) {
+            dialog.show();
+        } else {
+            ons.createElement(html, {append: true})
+                .then(function (dialog) {
+                    dialog.show();
+                });
+        }
+    };
+
+    var hideDialog = function (id) {
+        document
+            .getElementById(id)
+            .hide();
+    };
+
+    window.fn = {};
+
+    window.fn.open = function () {
+        var menu = document.getElementById('menu');
+        menu.open();
+    };
+
+    window.fn.load = function (page) {
+        var content = document.getElementById('content');
+        var menu = document.getElementById('menu');
+        content.load(page)
+            .then(menu.close.bind(menu));
+    };
 
 </script>
 
